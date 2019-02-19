@@ -1,5 +1,5 @@
 sudo apt-get -y install python3-pip
-sudo apt-get -y install curl && sudo curl -sL https://deb.nodesource.com/setup_8.x | bash - && sudo apt-get -y install build-essential nodejs
+sudo apt-get -y install curl && sudo curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && sudo apt-get -y install build-essential nodejs
 pip install --upgrade virtualenv
 virtualenv -p python3 nbdime
 . nbdime/bin/activate
