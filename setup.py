@@ -22,7 +22,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 ensure_python(('2.7', '>=3.4'))
 
 # the name of the project
-name = 'nbdime'
+name = 'nbdime-dotscience'
 version = get_version(pjoin(name, '_version.py'))
 
 # Some paths
