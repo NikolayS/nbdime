@@ -1,3 +1,10 @@
+# dotscience fork of nbdime
+
+This fork is intended to be a more lightweight version of the original nbdime - as such we don't intend on merging this back upstream.
+
+**ORIGINAL UPSTREAM DOCS BELOW**
+
+
 **[Installation](#installation)** |
 **[Documentation](#documentation)** |
 **[Contributing](#contributing)** |

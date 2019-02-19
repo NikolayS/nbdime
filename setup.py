@@ -24,7 +24,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 ensure_python(('2.7', '>=3.4'))
 
 # the name of the project
-name = 'nbdime'
+name = 'nbdime-dotscience'
 version = get_version(pjoin(name, '_version.py'))
 
 # Some paths
@@ -72,7 +72,7 @@ cmdclass['js'] = combine_commands(
 
 setup_args = dict(
     name            = name,
-    description     = "Diff and merge of Jupyter Notebooks",
+    description     = "Diff and merge of Jupyter Notebooks, styled for dotscience",
     version         = version,
     scripts         = glob(pjoin('scripts', '*')),
     cmdclass        = cmdclass,
