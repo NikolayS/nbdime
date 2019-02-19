@@ -131,7 +131,6 @@ function onDiff(e: Event) {
 
 
 function compare(base: string, remote: string | undefined, pushHistory: boolean | 'replace') {
-  toggleSpinner(true);
   getDiff(base, remote);
   if (pushHistory) {
     let uri = window.location.pathname;
