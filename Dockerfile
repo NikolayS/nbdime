@@ -4,6 +4,5 @@ RUN apk add --update nodejs nodejs-npm build-base
 COPY . /app
 WORKDIR /app
 RUN npm install -g tsc
-RUN npm install
 RUN pip install .
 
