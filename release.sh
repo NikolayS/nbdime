@@ -1,4 +1,5 @@
-pip3 install --upgrade virtualenv
+apt-get install python3-pip
+pip install --upgrade virtualenv
 virtualenv -p python3 nbdime
 . nbdime/bin/activate
 python3 setup.py sdist bdist_wheel
