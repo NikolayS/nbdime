@@ -1,6 +1,6 @@
 FROM python:3.6
 
-
+RUN apt-get update && curl -sL https://deb.nodesource.com/setup_11.x | bash - && apt-get install -y nodejs
 WORKDIR /home
 RUN mkdir -p /home/jupyter && mkdir -p /home/jupyter/nbdime \
     && mkdir -p /home/jupyter/packages && mkdir -p /home/jupyter/packages/labextension \
@@ -13,7 +13,7 @@ COPY packages/nbdime/package.json packages/nbdime
 COPY packages/webapp/package.json packages/webapp
 COPY scripts/ /home/jupyter/scripts
 RUN python -m venv env
-RUN bash scripts/install-npm.sh
+RUN cd packages/labextension && npm install && cd ../nbdime && npm install && cd ../webapp && npm install
 
 # copy the python stuff, also unlikely to change
 COPY ./nbdime /home/jupyter/nbdime
@@ -27,7 +27,7 @@ COPY ./packages /home/jupyter/packages
 ENV NBDIME_DIR /home/jupyter
 
 # finally, install it all (also does npm run build using lerna)
-RUN bash scripts/install-pip.sh
+RUN pip install .
 
 EXPOSE 9000
 
