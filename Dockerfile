@@ -1,10 +1,11 @@
 FROM python:3.6
 # this needs splitting up
-COPY . /app
-WORKDIR /app
+WORKDIR /home
+RUN mkdir -p /home/jupyter
+WORKDIR /home/jupyter
 
 # Configure Environment
-ENV NBDIME_DIR /home/jupyter/nbdime
+ENV NBDIME_DIR /home/jupyter
 ENV NB_USER nbdime
 ENV NB_UID 1000
 
@@ -14,7 +15,7 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
     chown $NB_USER $NBDIME_DIR
 
 RUN python -m venv env
-RUN /bin/bash -c "source env/bin/activate; pip install nodeenv; nodeenv -p; pip install ."
+RUN /bin/bash -c "source env/bin/activate; pip install nodeenv; nodeenv -p; pip install -e ."
 
 #USER $NB_USER
 EXPOSE 9000
