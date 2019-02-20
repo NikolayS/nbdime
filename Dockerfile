@@ -15,6 +15,7 @@ RUN python -m venv env
 RUN cd packages/labextension && npm install && cd ../nbdime && npm install && cd ../webapp && npm install
 
 # copy the python stuff, also unlikely to change
+COPY ./jupyter-config /home/jupyter/jupyter-config
 COPY ./nbdime /home/jupyter/nbdime
 COPY setup.py MANIFEST.in setup.cfg setupbase.py tsconfig.json tsconfig_base.json lerna.json package.json package-lock.json LICENSE.md /home/jupyter/
 
