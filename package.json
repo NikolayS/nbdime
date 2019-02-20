@@ -1,5 +1,6 @@
 {
   "private": true,
+  "name": "nbdime",
   "scripts": {
     "install": "lerna bootstrap --hoist",
     "clean": "rimraf node_modules && lerna run clean",
@@ -14,7 +15,7 @@
     "unsafe-perm":true
   },
   "devDependencies": {
-    "lerna": "^2.0.0",
-    "rimraf": "^2.6.2"
+    "lerna": "2.0.0",
+    "rimraf": "2.6.2"
   }
 }
