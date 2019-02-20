@@ -46,6 +46,7 @@ template_path = os.path.join(here, 'templates')
 
 class NbdimeHandler(IPythonHandler):
     def initialize(self, **params):
+        self.settings.set("allow_remote_access", True)
         self.params = params
 
     def base_args(self):
