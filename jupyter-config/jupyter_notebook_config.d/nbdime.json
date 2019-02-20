@@ -2,6 +2,7 @@
   "NotebookApp": {
     "nbserver_extensions": {
       "nbdime": true
-    }
+    },
+    "allow_remote_access": true
   }
 }
