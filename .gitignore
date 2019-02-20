@@ -26,3 +26,5 @@ nbdime/webapp/static/**
 !nbdime/webapp/static/favicon.ico
 *.tsbuildinfo
 nbdime/bin
+nbdime/lib
+nbdime/include
