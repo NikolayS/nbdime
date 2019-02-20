@@ -16,7 +16,6 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
     chown $NB_USER $NBDIME_DIR
 
 RUN python -m venv env
-USER $NB_USER
 RUN /bin/bash -c "source env/bin/activate; pip install nodeenv; nodeenv -p; pip install -e ."
 
 
