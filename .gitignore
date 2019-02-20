@@ -25,3 +25,5 @@ packages/**/test/build/
 nbdime/webapp/static/**
 !nbdime/webapp/static/favicon.ico
 nbdime/bin
+nbdime/lib
+nbdime/include
