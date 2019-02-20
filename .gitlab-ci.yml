@@ -13,4 +13,4 @@ deploy_docker_image:
   script:
     - docker build -t quay.io/dotmesh/nbdime:$CI_COMMIT_SHA .
     - docker login -u $QUAY_USER -p $QUAY_PASSWORD quay.io
-    - docker push quay.io/dotmesh/nbdime/$CI_COMMIT_SHA
+    - docker push quay.io/dotmesh/nbdime:$CI_COMMIT_SHA
