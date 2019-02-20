@@ -8,9 +8,9 @@ RUN mkdir -p /home/jupyter && mkdir -p /home/jupyter/nbdime \
 WORKDIR /home/jupyter
 
 # these are least likely to change, copy them first and do the install
-COPY packages/labextension/package.json packages/labextension
-COPY packages/nbdime/package.json packages/nbdime
-COPY packages/webapp/package.json packages/webapp
+COPY packages/labextension/package.json packages/labextension/tsconfig.json packages/labextension/
+COPY packages/nbdime/package.json packages/nbdime/tsconfig.json packages/nbdime/
+COPY packages/webapp/package.json packages/webapp/tsconfig.json packages/webapp/
 COPY package.json tsconfig.json tsconfig_base.json lerna.json package-lock.json /home/jupyter/
 RUN npm install && cd packages/labextension && npm install && cd ../nbdime && npm install && cd ../webapp && npm install
 RUN npm run build
