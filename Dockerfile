@@ -9,7 +9,7 @@ COPY . /home/jupyter
 ENV NBDIME_DIR /home/jupyter
 
 RUN python -m venv env
-RUN /bin/bash -c "source env/bin/activate; pip install nodeenv; nodeenv -p; pip install -e ."
+RUN /bin/bash -c "source env/bin/activate; pip install nodeenv; nodeenv -p; npm install -g lerna; pip install -e ."
 
 
 EXPOSE 9000
