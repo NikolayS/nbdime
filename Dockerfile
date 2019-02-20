@@ -16,9 +16,10 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
     chown $NB_USER $NBDIME_DIR
 
 RUN python -m venv env
+USER $NB_USER
 RUN /bin/bash -c "source env/bin/activate; pip install nodeenv; nodeenv -p; pip install -e ."
 
-#USER $NB_USER
+
 EXPOSE 9000
 
 CMD ["./env/bin/python3", "-m", "nbdime.webapp.nbdimeserver", "--port=9000", "--log-level=DEBUG", "--ip=0.0.0.0"]
