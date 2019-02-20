@@ -3,6 +3,7 @@ FROM python:3.6
 WORKDIR /home
 RUN mkdir -p /home/jupyter
 WORKDIR /home/jupyter
+COPY . /home/jupyter
 
 # Configure Environment
 ENV NBDIME_DIR /home/jupyter
