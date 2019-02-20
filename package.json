@@ -1,5 +1,6 @@
 {
   "private": true,
+  "name": "nbdime",
   "scripts": {
     "install": "lerna bootstrap --hoist",
     "clean": "lerna run clean",
