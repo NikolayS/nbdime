@@ -10,6 +10,9 @@
   "directories": {
     "lib": "lib/"
   },
+  "config": {
+    "unsafe-perm":true
+  },
   "scripts": {
     "build": "tsc --project . && node scripts/copy-files.js",
     "build:dev": "tsc --project .",

@@ -4,6 +4,9 @@
   "description": "A JupyterLab extension for showing Notebook diffs.",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
+  "config": {
+    "unsafe-perm":true
+  },
   "dependencies": {
     "@jupyterlab/apputils": "0.19.1",
     "@jupyterlab/coreutils": "2.2.1",

@@ -4,6 +4,9 @@
   "version": "2.2.0",
   "license": "BSD-3-Clause",
   "private": true,
+  "config": {
+    "unsafe-perm":true
+  },
   "scripts": {
     "build": "webpack -p",
     "build:dev": "webpack -d",
