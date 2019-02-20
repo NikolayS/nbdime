@@ -25,6 +25,7 @@ COPY ./packages /home/jupyter/packages
 
 # not sure this does anything, pinched from another dockerfile
 ENV NBDIME_DIR /home/jupyter
+ENV JUPYTER_CONFIG_DIR /home/jupyter/jupyter-config
 
 # finally, install it all (also does npm run build using lerna)
 RUN pip install .
