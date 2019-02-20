@@ -11,4 +11,6 @@ deploy_docker_image:
     - ubuntu-bionic
     - fast
   script:
-    - ./release.sh $CI_COMMIT_SHA
+    - docker build -t quay.io/dotmesh/nbdime:$CI_COMMIT_SHA .
+    - docker login -u $QUAY_USERNAME -p $QUAY_PASSWORD quay.io
+    - docker push quay.io/dotmesh/nbdime/$CI_COMMIT_SHA
