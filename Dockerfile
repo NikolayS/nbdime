@@ -10,7 +10,7 @@ COPY packages/labextension/package.json packages/labextension
 COPY packages/nbdime/package.json packages/nbdime
 COPY packages/webapp/package.json packages/webapp
 COPY ./nbdime /home/jupyter/nbdime
-COPY setup.py MANIFEST.in setup.cfg setupbase.py tsconfig.json tsconfig_base.json package.json package-lock.json /home/jupyter/
+COPY setup.py MANIFEST.in setup.cfg setupbase.py tsconfig.json tsconfig_base.json lerna.json package.json package-lock.json /home/jupyter/
 COPY scripts/ /home/jupyter/scripts
 COPY ./packages /home/jupyter/packages
 
