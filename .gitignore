@@ -27,3 +27,5 @@ nbdime/webapp/static/**
 package-lock.json
 *.tsbuildinfo
 nbdime/bin
+nbdime/lib
+nbdime/include
