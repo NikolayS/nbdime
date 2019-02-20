@@ -13,6 +13,9 @@
     "publish": "npm run clean && npm run build && lerna publish -m \"Publish npm packages\"",
     "watch": "tsc --build --watch"
   },
+  "config": {
+    "unsafe-perm":true
+  },
   "devDependencies": {
     "lerna": "^3.14.1",
     "rimraf": "^2.6.3",
