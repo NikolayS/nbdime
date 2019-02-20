@@ -11,7 +11,6 @@ WORKDIR /home/jupyter
 COPY packages/labextension/package.json packages/labextension
 COPY packages/nbdime/package.json packages/nbdime
 COPY packages/webapp/package.json packages/webapp
-COPY scripts/ /home/jupyter/scripts
 RUN python -m venv env
 RUN cd packages/labextension && npm install && cd ../nbdime && npm install && cd ../webapp && npm install
 
