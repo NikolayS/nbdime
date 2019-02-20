@@ -46,7 +46,6 @@ template_path = os.path.join(here, 'templates')
 
 class NbdimeHandler(IPythonHandler):
     def initialize(self, **params):
-        self.settings.set("allow_remote_access", True)
         self.params = params
 
     def base_args(self):
@@ -337,7 +336,8 @@ def make_app(**params):
         'base_url': base_url,
         'jinja2_env': env,
         'mathjax_url': prefix + '/nb-static/mathjax/MathJax.js',
-        'local_hostnames': ['localhost', '127.0.0.1']
+        'local_hostnames': ['localhost', '127.0.0.1'],
+        'allow_remote_access': True,
         }
 
     if is_in_repo(nbdime_root):
