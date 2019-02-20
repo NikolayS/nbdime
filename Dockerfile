@@ -11,7 +11,7 @@ WORKDIR /home/jupyter
 COPY packages/labextension/package.json packages/labextension
 COPY packages/nbdime/package.json packages/nbdime
 COPY packages/webapp/package.json packages/webapp
-COPY package.json /home/jupyter/
+COPY tsconfig.json tsconfig_base.json lerna.json package-lock.json /home/jupyter/
 RUN python -m venv env
 RUN npm install && cd packages/labextension && npm install && cd ../nbdime && npm install && cd ../webapp && npm install
 RUN npm run build
@@ -19,7 +19,7 @@ RUN npm run build
 # copy the python stuff, also unlikely to change
 COPY ./jupyter-config /home/jupyter/jupyter-config
 COPY ./nbdime /home/jupyter/nbdime
-COPY setup.py MANIFEST.in setup.cfg setupbase.py tsconfig.json tsconfig_base.json lerna.json package.json package-lock.json LICENSE.md /home/jupyter/
+COPY setup.py MANIFEST.in setup.cfg setupbase.py LICENSE.md /home/jupyter/
 
 # copy the remainder of the js code
 COPY ./packages /home/jupyter/packages
