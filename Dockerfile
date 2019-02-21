@@ -13,7 +13,6 @@ COPY packages/nbdime/package.json packages/nbdime/tsconfig.json packages/nbdime/
 COPY packages/webapp/package.json packages/webapp/tsconfig.json packages/webapp/
 COPY package.json tsconfig.json tsconfig_base.json lerna.json package-lock.json /home/jupyter/
 RUN npm install && cd packages/labextension && npm install && cd ../nbdime && npm install && cd ../webapp && npm install
-RUN npm run build
 
 # copy the python stuff, also unlikely to change
 COPY ./jupyter-config /home/jupyter/jupyter-config
@@ -22,6 +21,7 @@ COPY setup.py MANIFEST.in setup.cfg setupbase.py LICENSE.md /home/jupyter/
 
 # copy the remainder of the js code
 COPY ./packages /home/jupyter/packages
+RUN npm run build
 
 
 # not sure this does anything, pinched from another dockerfile
