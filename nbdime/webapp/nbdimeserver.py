@@ -82,7 +82,11 @@ class NbdimeHandler(IPythonHandler):
 
         try:
             # Check that file exists
-            r = requests.get(arg)
+            if arg == EXPLICIT_MISSING_FILE:
+                path = arg
+            else:
+                path = os.path.join(self.curdir, arg)
+                r = requests.get(arg)
 
             # Let nbformat do the reading and validation
             if os.path.exists(path):
@@ -215,6 +219,10 @@ class ApiDiffHandler(NbdimeHandler, APIHandler):
     def get_notebook_argument(self, argname):
         if 'difftool_args' in self.params:
             arg = self.params['difftool_args'][argname]
+            if not isinstance(arg, string_types):
+                # Assume arg is file-like
+                arg.seek(0)
+                return nbformat.read(arg, as_version=4)
             return self.read_notebook(arg)
         return super(ApiDiffHandler, self).get_notebook_argument(argname)
 
