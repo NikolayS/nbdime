@@ -341,6 +341,7 @@ def make_app(**params):
         'mathjax_url': prefix + '/nb-static/mathjax/MathJax.js',
         'local_hostnames': ['localhost', '127.0.0.1'],
         'allow_remote_access': True,
+        'allow_origin': 'localhost',
         }
 
     if is_in_repo(nbdime_root):
