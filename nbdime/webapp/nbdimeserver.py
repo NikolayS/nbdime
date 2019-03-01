@@ -42,6 +42,8 @@ here = os.path.abspath(os.path.dirname(__file__))
 static_path = os.path.join(here, 'static')
 template_path = os.path.join(here, 'templates')
 
+S3_URL_PREFIX = os.environ.get("S3_URL_PREFIX", 'http://gateway:8700')
+
 
 class NbdimeHandler(IPythonHandler):
     def initialize(self, **params):
@@ -85,7 +87,7 @@ class NbdimeHandler(IPythonHandler):
                 path = arg
             else:
                 path = os.path.join(self.curdir, arg)
-                r = requests.get(arg)
+                r = requests.get(S3_URL_PREFIX + arg)
 
             # Let nbformat do the reading and validation
             if path == EXPLICIT_MISSING_FILE:
@@ -221,10 +223,6 @@ class ApiDiffHandler(NbdimeHandler, APIHandler):
     def get_notebook_argument(self, argname):
         if 'difftool_args' in self.params:
             arg = self.params['difftool_args'][argname]
-            if not isinstance(arg, string_types):
-                # Assume arg is file-like
-                arg.seek(0)
-                return nbformat.read(arg, as_version=4)
             return self.read_notebook(arg)
         return super(ApiDiffHandler, self).get_notebook_argument(argname)
 
