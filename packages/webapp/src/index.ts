@@ -40,9 +40,6 @@ import 'nbdime/lib/styles/common.css';
 import 'nbdime/lib/styles/diff.css';
 import 'nbdime/lib/styles/merge.css';
 
-import './app/common.css';
-import './app/diff.css';
-import './app/merge.css';
 
 
 /** */
