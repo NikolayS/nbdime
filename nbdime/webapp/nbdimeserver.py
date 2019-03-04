@@ -93,8 +93,6 @@ class NbdimeHandler(IPythonHandler):
             # Let nbformat do the reading and validation
             if path == EXPLICIT_MISSING_FILE:
                 nb = nbformat.v4.new_notebook()
-            elif os.path.exists(path):
-                nb = nbformat.read(path, as_version=4)
             else:
                 nb = nbformat.reads(r.text, as_version=4)
         except Exception as e:
