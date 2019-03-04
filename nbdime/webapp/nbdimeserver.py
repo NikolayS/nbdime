@@ -89,16 +89,16 @@ class NbdimeHandler(IPythonHandler):
             else:
                 path = os.path.join(self.curdir, arg)
                 r = requests.get(S3_URL_PREFIX + arg)
+                r.raise_for_status()
 
             # Let nbformat do the reading and validation
             if path == EXPLICIT_MISSING_FILE:
                 nb = nbformat.v4.new_notebook()
             else:
                 nb = nbformat.reads(r.text, as_version=4)
-        except Exception as e:
+        except nbformat.reader.NotJSONError as e:
             self.log.exception(e)
             raise web.HTTPError(422, 'Invalid notebook: %s' % arg)
-
         return nb
 
     def get_notebook_argument(self, argname):
