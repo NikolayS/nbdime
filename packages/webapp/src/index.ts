@@ -25,14 +25,6 @@ import '@jupyterlab/codemirror/style/index.css';
 import '@jupyterlab/theme-light-extension/style/index.css';
 import '@jupyterlab/notebook/style/index.css';
 
-import 'nbdime/lib/common/collapsible.css';
-import 'nbdime/lib/upstreaming/flexpanel.css';
-import 'nbdime/lib/common/dragpanel.css';
-import 'nbdime/lib/styles/variables.css';
-import 'nbdime/lib/styles/common.css';
-import 'nbdime/lib/styles/diff.css';
-import 'nbdime/lib/styles/merge.css';
-
 
 
 /** */
