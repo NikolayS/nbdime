@@ -262,18 +262,24 @@ function downloadMerged() {
  */
 function submitMerge(mergedNotebook: nbformat.INotebookContent,
                      conflicts: IMergeDecision[]) {
-  let filename = getConfigOption('base')
-  let filenameArr = filename.Split("/")
-  filename = filenameArr[filenameArr.length - 1]
-  requestApi(
-    getConfigOption('gateway_hostname'),
-    `/v2/projects/${getConfigOption('proj_id')}/forks/${getConfigOption('fork_id')}/${getConfigOption('dot_id')}?filename=${filename}`,
-    {
-      merged: true,
-      contents: mergedNotebook,
+  let filename = getConfigOption('local')
+  let filenameArr = filename.split("/")
+  filenameArr = filenameArr[filenameArr.length - 1].split("?")
+  filename = filenameArr[0]
+
+  return fetch(`/v2/projects/${getConfigOption('proj_id')}/forks/${getConfigOption('fork_id')}/${getConfigOption('dot_id')}?filename=${filename};&shortLivedToken=${getConfigOption('token')}`, {
+    method: "PUT", // *GET, POST, PUT, DELETE, etc.
+    mode: "cors", // no-cors, cors, *same-origin
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: "same-origin", // include, *same-origin, omit
+    headers: {
+        "Content-Type": "application/json",
+        // "Content-Type": "application/x-www-form-urlencoded",
     },
-    onSubmissionCompleted,
-    onSubmissionFailed);
+    redirect: "follow", // manual, *follow, error
+    referrer: "no-referrer", // no-referrer, *client
+    body: JSON.stringify({"merged": true, "contents": JSON.stringify(mergedNotebook)}), // body data type must match "Content-Type" header
+}).then(response => console.log(response.json()))
 }
 
 /**
