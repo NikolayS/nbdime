@@ -53,6 +53,7 @@ import {
 import {
   extractMergedNotebook
 } from './save';
+import { string } from 'prop-types';
 
 
 let mergeWidget: NotebookMergeWidget | null = null;
@@ -261,13 +262,15 @@ function downloadMerged() {
  */
 function submitMerge(mergedNotebook: nbformat.INotebookContent,
                      conflicts: IMergeDecision[]) {
-  console.log(getBaseUrl())
+  let filename = getConfigOption('base')
+  let filenameArr = filename.Split("/")
+  filename = filenameArr[filenameArr.length - 1]
   requestApi(
-    getBaseUrl(),
-    '/api/store',
+    getConfigOption('gateway_hostname'),
+    `/v2/projects/${getConfigOption('proj_id')}/forks/${getConfigOption('fork_id')}/${getConfigOption('dot_id')}?filename=${filename}`,
     {
-      merged: mergedNotebook,
-      conflicts: conflicts
+      merged: true,
+      contents: mergedNotebook,
     },
     onSubmissionCompleted,
     onSubmissionFailed);
