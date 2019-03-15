@@ -177,6 +177,10 @@ class MainMergeHandler(NbdimeHandler):
         args['base'] = self.get_argument('base', '')
         args['local'] = self.get_argument('local', '')
         args['remote'] = self.get_argument('remote', '')
+        args['proj_id'] = self.get_argument('proj_id', '')
+        args['fork_id'] = self.get_argument('fork_id', '')
+        args['dot_id'] = self.get_argument('dot_id', '')
+        args['gateway_hostname'] = S3_URL_PREFIX
         self.write(self.render_template('merge.html',
                     config_data=args,
                    ))
