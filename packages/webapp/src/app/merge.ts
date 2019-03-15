@@ -261,6 +261,7 @@ function downloadMerged() {
  */
 function submitMerge(mergedNotebook: nbformat.INotebookContent,
                      conflicts: IMergeDecision[]) {
+  console.log(getBaseUrl())
   requestApi(
     getBaseUrl(),
     '/api/store',
@@ -397,15 +398,10 @@ function initializeMerge() {
     compare(base, local, remote, 'replace');
   }
 
-  let savable = getConfigOption('savable');
-  let saveBtn = document.getElementById('nbdime-save') as HTMLButtonElement;
-  if (savable) {
-    saveBtn.onclick = saveMerged;
-    saveBtn.style.display = 'initial';
-  }
-  let downloadBtn = document.getElementById('nbdime-download') as HTMLButtonElement;
-  downloadBtn.onclick = downloadMerged;
-  downloadBtn.style.display = 'initial';
+  let resolveBtn = document.getElementById('nbdime-resolve') as HTMLButtonElement;
+  resolveBtn.onclick = saveMerged;
+  resolveBtn.style.display = 'initial';
+
 
   let hideUnchangedChk = document.getElementById('nbdime-hide-unchanged') as HTMLInputElement;
   hideUnchangedChk.checked = getConfigOption('hideUnchanged', true);
