@@ -22,8 +22,9 @@
           </form> <!-- nbdime-forms -->
         </div> 
       <div id="nbdime-header-buttonrow">
-        <input id="nbdime-hide-unchanged" type="checkbox"><label for="cbox1">Hide unchanged cells</label></input>
-        <button id="nbdime-resolve">Mark resolved</button>
+        <span id="nbdime-hide-unchanged-cells"><input id="nbdime-hide-unchanged" type="checkbox"/><label for="cbox1">Hide unchanged cells</label></span>
+        <button id="nbdime-resolve" class="button buttonPrimary">Mark resolved</button>
+        <button id="nbdime-reset" onclick="location.reload();">Reset</button>
         <button id="nbdime-download" style="display: none">Download</button>
         <button id="nbdime-close" style="display: none">Close tool</button>
       </div>
