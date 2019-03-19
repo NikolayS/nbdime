@@ -176,9 +176,9 @@ class CellMergeWidget extends Panel {
     let radd = model.remote && model.remote.added;
     let rdel = model.remote && model.remote.deleted;
     if (ladd && !radd || ldel && !rdel) {
-      this.headerTitle = ladd ? 'Cell added locally' : 'Cell deleted locally';
+      this.headerTitle = ladd ? 'Cell added to the origin notebook' : 'Cell deleted from the origin notebook';
     } else if (radd && !ladd || rdel && !ldel) {
-      this.headerTitle = radd ? 'Cell added remotely' : 'Cell deleted remotely';
+      this.headerTitle = radd ? 'Cell added to your notebook' : 'Cell deleted from your notebook';
     }
 
     if (model.local === null || model.remote === null || (  // One sided change
