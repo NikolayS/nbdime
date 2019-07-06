@@ -12,7 +12,7 @@
     "watch": "tsc --build --watch"
   },
   "config": {
-    "unsafe-perm":true
+    "unsafe-perm": true
   },
   "devDependencies": {
     "lerna": "^3.14.1",
