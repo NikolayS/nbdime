@@ -17,7 +17,7 @@
   "config": {
     "unsafe-perm": true
   },
-  "devDependencies": {
+  "dependencies": {
     "lerna": "^3.14.1",
     "rimraf": "^2.6.3",
     "@jupyterlab/buildutils": "^1.0.0"
