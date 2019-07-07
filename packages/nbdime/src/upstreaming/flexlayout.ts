@@ -717,7 +717,7 @@ namespace FlexLayout {
     if (value === 'auto') {
       widget.node.style.flexBasis = value as string;
     } else if (value === null) {
-      widget.node.style.flexBasis = value;
+      widget.node.style.flexBasis = '';
     } else {
       widget.node.style.flexBasis = value.toString() + 'px';
     }
