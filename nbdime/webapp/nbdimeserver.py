@@ -339,13 +339,9 @@ def make_app(**params):
         'jinja2_env': env,
         'mathjax_url': prefix + '/nb-static/mathjax/MathJax.js',
         'local_hostnames': ['localhost', '127.0.0.1'],
-<<<<<<< HEAD
         'allow_remote_access': True,
         'allow_origin': '*',
         }
-=======
-    }
->>>>>>> 0590d1b1318766d3aadc58932a3795b0a6fc5f1a
 
     if is_in_repo(nbdime_root):
         # don't cache when working from repo
