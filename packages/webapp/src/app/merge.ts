@@ -267,7 +267,10 @@ function submitMerge(mergedNotebook: nbformat.INotebookContent,
   filenameArr = filenameArr[filenameArr.length - 1].split("?")
   filename = filenameArr[0]
 
-  return fetch(`/v2/projects/${getConfigOption('proj_id')}/forks/${getConfigOption('fork_id')}/${getConfigOption('dot_id')}?filename=${filename};&shortLivedToken=${getConfigOption('token')}`, {
+  const url = `/v2/projects/${getConfigOption('proj_id')}/forks/${getConfigOption('fork_id')}/${getConfigOption('dot_id')}?filename=${filename};&shortLivedToken=${getConfigOption('token')}`
+  console.log('--------------------------------------------')
+  console.log('saving merge: ' + url)
+  return fetch(url, {
     method: "PUT", // *GET, POST, PUT, DELETE, etc.
     mode: "cors", // no-cors, cors, *same-origin
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -279,7 +282,12 @@ function submitMerge(mergedNotebook: nbformat.INotebookContent,
     redirect: "follow", // manual, *follow, error
     referrer: "no-referrer", // no-referrer, *client
     body: JSON.stringify({"merged": true, "contents": JSON.stringify(mergedNotebook)}), // body data type must match "Content-Type" header
-}).then(response => console.log(response.json()))
+  })
+    .then(response => {
+      console.log('--------------------------------------------')
+      console.log('response: ' + response.status)
+      console.log(response.text())
+    })
 }
 
 /**
