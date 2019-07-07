@@ -109,13 +109,13 @@ abstract class RenderableDiffModel<T extends JSONValue> implements IDiffModel {
     let base = key ? getMemberByPath(this.base, key) : this.base;
     let remote = key ? getMemberByPath(this.remote, key) : this.remote;
     let diff = (this.diff && key) ?
-      getMemberByPath(this.diff as any, key, getSubDiffByKey) as IDiffEntry[] | null :
+      getMemberByPath(this.diff as any, key, getSubDiffByKey) as unknown[] | null :
       this.diff;
     let model: IStringDiffModel | null = null;
     if (this.unchanged || this.added || this.deleted || !diff) {
       model = createDirectStringDiffModel(base, remote);
     } else {
-      model = createPatchStringDiffModel(base as (string | JSONObject | JSONArray), diff);
+      model = createPatchStringDiffModel(base as (string | JSONObject | JSONArray), diff as IDiffEntry[]);
     }
     model.mimetype = key ? this.innerMimeType(key) : 'application/json';
     model.collapsible = this.collapsible;
