@@ -268,8 +268,6 @@ function submitMerge(mergedNotebook: nbformat.INotebookContent,
   filename = filenameArr[0]
 
   const url = `/v2/projects/${getConfigOption('proj_id')}/forks/${getConfigOption('fork_id')}/${getConfigOption('dot_id')}?filename=${filename};&shortLivedToken=${getConfigOption('token')}`
-  console.log('--------------------------------------------')
-  console.log('saving merge: ' + url)
   return fetch(url, {
     method: "PUT", // *GET, POST, PUT, DELETE, etc.
     mode: "cors", // no-cors, cors, *same-origin
@@ -283,11 +281,8 @@ function submitMerge(mergedNotebook: nbformat.INotebookContent,
     referrer: "no-referrer", // no-referrer, *client
     body: JSON.stringify({"merged": true, "contents": JSON.stringify(mergedNotebook)}), // body data type must match "Content-Type" header
   })
-    .then(response => {
-      console.log('--------------------------------------------')
-      console.log('response: ' + response.status)
-      console.log(response.text())
-    })
+    .then(onSubmissionCompleted)
+    .catch(onSubmissionFailed)
 }
 
 /**
@@ -302,7 +297,7 @@ function onSubmissionCompleted() {
  * Callback for a failed store of the submitted merged notebook
  */
 function onSubmissionFailed(response: string) {
-  alertify.error('Was not able to save the notebook! See console and/or server log for details.');
+  alertify.error(`Was not able to save the notebook! See console and/or server log for more details: ${response}`);
 }
 
 
