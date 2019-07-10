@@ -4,7 +4,6 @@
 from __future__ import print_function
 from __future__ import unicode_literals
 
-from argparse import ArgumentParser
 import io
 import json
 import logging
@@ -22,7 +21,7 @@ from six import string_types
 from tornado import ioloop, web, escape, netutil, httpserver
 
 from .. import __file__ as nbdime_root
-from ..args import add_generic_args, add_web_args
+from ..args import ConfigBackedParser, add_generic_args, add_web_args
 from ..diffing.notebooks import diff_notebooks
 from ..log import logger
 from ..merging.notebooks import decide_notebook_merge
@@ -94,11 +93,17 @@ class NbdimeHandler(IPythonHandler):
             # Let nbformat do the reading and validation
             if path == EXPLICIT_MISSING_FILE:
                 nb = nbformat.v4.new_notebook()
+            elif os.path.exists(path):
+                nb = nbformat.read(path, as_version=4)
             else:
                 nb = nbformat.reads(r.text, as_version=4)
-        except nbformat.reader.NotJSONError as e:
+        except requests.exceptions.HTTPError as e:
+            self.log.exception(e)
+            raise web.HTTPError(422, 'Invalid notebook: %s, received http error: %s' % (arg, string(e)))
+        except Exception as e:
             self.log.exception(e)
             raise web.HTTPError(422, 'Invalid notebook: %s' % arg)
+    
         return nb
 
     def get_notebook_argument(self, argname):
@@ -358,6 +363,9 @@ def init_app(on_port=None, closable=False, **params):
     port = params.pop('port', 0)
     ip = params.pop('ip', '127.0.0.1')
     app = make_app(**params)
+    if ip not in {'127.0.0.1', 'localhost', '::1'}:
+        # enable remote access when listening on a public ip
+        app.settings['allow_remote_access'] = True
     if port != 0:
         server = app.listen(port, address=ip)
         _logger.info('Listening on %s, port %d', ip, port)
@@ -394,7 +402,7 @@ def _build_arg_parser():
     and displays a help message.
     """
     description = 'Web interface for Nbdime.'
-    parser = ArgumentParser(description=description)
+    parser = ConfigBackedParser(description=description)
     add_generic_args(parser)
     add_web_args(parser)
     return parser
