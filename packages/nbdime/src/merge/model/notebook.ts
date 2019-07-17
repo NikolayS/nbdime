@@ -436,7 +436,27 @@ function splitCellRemovals(mergeDecisions: MergeDecision[]): MergeDecision[] {
           let remote = i >= krStart && i < krEnd;
           output.push(makeSplitPart(md, i, local, remote));
         }
-      } else {
+      } else if (dl.op === 'addrange' || dr.op === 'addrange') {
+          // One side has removerange, the other an addrange
+          let remLocal = dl.op === 'removerange';
+          let rOp = (remLocal ? dl : dr) as IDiffRemoveRange;
+          let pOp = (remLocal ? dr : dl) as IDiffAddRange;
+          console.assert(pOp.op === 'addrange');
+
+          let pidx = pOp.key;
+          let start = rOp.key;
+          for (let i = start; i < start + rOp.length; ++i) {
+              let newMd = makeSplitPart(md, i, remLocal, !remLocal);
+              if (i === pidx) {
+                  if (remLocal) {
+                      newMd.remoteDiff = [pOp];
+                  } else  {
+                      newMd.localDiff = [pOp];
+                  }
+              }
+              output.push(newMd);
+          }
+      } else if (dl.op === 'patch' || dr.op === 'patch') {
         // One side has removerange, the other a patch op (implied)
         let remLocal = dl.op === 'removerange';
         let rOp = (remLocal ? dl : dr) as IDiffRemoveRange;
