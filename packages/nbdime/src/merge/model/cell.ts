@@ -416,10 +416,11 @@ class CellMergeModel extends ObjectMergeModel<nbformat.ICell, CellDiffModel> {
      3. Deletion vs patch: Same as 2., but split patch decision onto
         source/metadata/outputs.
      4. Identical ops (insertion or deletion)
+     5. Deletion vs insertion.
      Cases that shouldn't happen:
-     5. Insertion vs insertion: Shouldn't happen! Should have been split
+     6. Insertion vs insertion: Shouldn't happen! Should have been split
         into two decisions with an insertion each before creating model.
-     6. Patch vs patch: Shouldn't occur, as those should have been recursed
+     7. Patch vs patch: Shouldn't occur, as those should have been recursed
      */
     console.assert(!this.onesided,
                    'Cannot have multiple cell decisions on one cell!');
@@ -469,7 +470,7 @@ class CellMergeModel extends ObjectMergeModel<nbformat.ICell, CellDiffModel> {
     } else {
       console.assert(hasEntries(md.localDiff) && hasEntries(md.remoteDiff));
       console.assert(md.localDiff.length === 1 && md.remoteDiff.length === 1);
-      // 3. or 4.
+      // 3. or 4. or 5.
       if (md.localDiff[0].op === md.remoteDiff[0].op) {
         // 4.
         if (this.base === null) {
@@ -486,6 +487,25 @@ class CellMergeModel extends ObjectMergeModel<nbformat.ICell, CellDiffModel> {
           this._merged = createDeletedCellDiffModel(this.base, this.mimetype);
           this.deleteCell = valueIn(md.action, ['local', 'remote', 'either']);
         }
+      } else if (md.localDiff[0].op === 'addrange' || md.remoteDiff[0].op == 'removerange') {
+        // 5.
+        let ops = [md.localDiff[0].op, md.remoteDiff[0].op];
+        console.assert(
+          valueIn('removerange', ops) && valueIn('addrange', ops));
+        if (this.base === null) {
+          throw new Error('Invalid merge decision, ' +
+                          'cannot have null base for deleted cell: ' + md);
+        }
+        if (ops[0] === 'removerange') {
+          this._local = createDeletedCellDiffModel(this.base, this.mimetype);
+          this._remote = createAddedCellDiffModel(this.base, this.mimetype);
+          this.deleteCell = md.action === 'local_then_remote';
+        } else {
+          this._remote = createDeletedCellDiffModel(this.base, this.mimetype);
+          this._local = createAddedCellDiffModel(this.base, this.mimetype);
+          this.deleteCell = md.action === 'remote_then_local';
+        }
+        resolveCommonPaths(newDecisions);
       } else {
         // 3., by method of elimination
         let ops = [md.localDiff[0].op, md.remoteDiff[0].op];
