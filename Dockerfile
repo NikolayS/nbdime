@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.7.4-buster AS build-stage
 
 RUN apt-get update && curl -sL https://deb.nodesource.com/setup_11.x | bash - && apt-get install -y nodejs
 WORKDIR /home
@@ -29,7 +29,15 @@ ENV NBDIME_DIR /home/jupyter
 ENV JUPYTER_CONFIG_DIR /home/jupyter/jupyter-config
 
 # finally, install it all (also does npm run build using lerna)
-RUN pip install .
+RUN python -m venv /home/jupyter/venv
+RUN venv/bin/pip install .
+
+
+# Runtime image, much smaller:
+FROM python:3.7.4-slim-buster AS runtime-stage
+COPY --from=build-stage /home/jupyter/venv /home/jupyter/venv
+# Active the virtualenv
+ENV PATH=/home/jupyter/venv/bin:$PATH
 
 EXPOSE 9000
 
