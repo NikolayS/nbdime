@@ -1,6 +1,6 @@
-FROM python:3.7.4-buster AS build-stage
+FROM python:3.7.4-slim-buster AS build-stage
 
-RUN apt-get update && curl -sL https://deb.nodesource.com/setup_11.x | bash - && apt-get install -y nodejs
+RUN apt-get update && apt-get install -y curl && curl -sL https://deb.nodesource.com/setup_11.x | bash - && apt-get install -y nodejs
 WORKDIR /home
 RUN mkdir -p /home/jupyter && mkdir -p /home/jupyter/nbdime \
     && mkdir -p /home/jupyter/packages && mkdir -p /home/jupyter/packages/labextension \
