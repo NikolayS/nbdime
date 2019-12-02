@@ -17,7 +17,7 @@ RUN npm install && cd packages/labextension && npm install && cd ../nbdime && np
 # copy the python stuff, also unlikely to change
 COPY ./jupyter-config /home/jupyter/jupyter-config
 COPY ./nbdime /home/jupyter/nbdime
-COPY setup.py MANIFEST.in setup.cfg setupbase.py LICENSE.md /home/jupyter/
+COPY setup.py MANIFEST.in setup.cfg setupbase.py LICENSE.md README.md /home/jupyter/
 
 # copy the remainder of the js code
 COPY ./packages /home/jupyter/packages
